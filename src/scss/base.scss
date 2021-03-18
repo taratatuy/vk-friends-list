@@ -33,31 +33,6 @@ body {
     flex-direction  : column;
 }
 
-header,
-footer {
-    margin  : 0 auto;
-    height  : 70px;
-
-    button {
-        height  : 40px;
-    }
-}
-
-.wrapper {
-    width       : 100%;
-    min-width   : 500px;
-    max-width   : 1080px;
-    min-height  : 550px;
-    margin      : 0 auto;
-    padding     : 0 8px;
-
-    flex-grow  : 1;
-}
-
-.list-row {
-    height  : 75%;
-}
-
 .flex {
     display  : flex;
 

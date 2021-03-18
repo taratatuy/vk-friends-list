@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <header>
-      <button @click="addColumn">Add new column</button>
-    </header>
+    <header></header>
     <div class="wrapper">
       <div class="flex list-row">
         <FriendList
@@ -25,7 +23,7 @@
           <div id="vk_auth"></div>
         </div>
 
-        <div v-for="colKey in getOtherCols()" :key="colKey" class="button-ph">
+        <div v-for="colKey in otherCols" :key="colKey" class="button-ph">
           <button type="button" @click="showLog(colKey)">
             Log {{ columns[colKey].label }}
           </button>
@@ -50,22 +48,27 @@ export default {
   },
 
   computed: {
+    otherCols() {
+      return Object.keys(this.columns).filter((key) => {
+        return key != 'col1';
+      });
+    },
     ...mapGetters(['columns']),
   },
 
   methods: {
-    /*
+    /**
      * Вешаем листенер на виджет авторизации.
      */
     authWidgetListener() {
       window.VK.init({ apiId: 7793585 });
       window.VK.Widgets.Auth('vk_auth', {
-        width: '250px',
+        width: '200px',
         onAuth: this.onLogIn,
       });
     },
 
-    /*
+    /**
      * Обработчик авторизации.
      */
     onLogIn() {
@@ -81,7 +84,7 @@ export default {
         });
     },
 
-    /*
+    /**
      * Запрос к апи вк через open API.
      */
     callAPI(method, params) {
@@ -97,7 +100,7 @@ export default {
       });
     },
 
-    /*
+    /**
      * Лог в консоль.
      */
     showLog(colKey) {
@@ -107,18 +110,6 @@ export default {
       });
 
       console.log(output);
-    },
-
-    getOtherCols() {
-      return Object.keys(this.columns).filter((key) => {
-        return key != 'col1';
-      });
-    },
-
-    addColumn() {
-      this.$store.dispatch('addColumn');
-      console.log(this.columns);
-      this.$forceUpdate();
     },
   },
   async mounted() {
@@ -130,10 +121,33 @@ export default {
 <style lang="scss">
 @import './scss/base.scss';
 
+header,
+footer {
+  margin: 0 auto;
+  min-height: 50px;
+}
+
+.wrapper {
+  width: 100%;
+  min-width: 500px;
+  max-width: 1080px;
+  min-height: 550px;
+  margin: 0 auto;
+  padding: 0 8px;
+
+  flex-grow: 1;
+}
+
+.list-row {
+  height: 75%;
+}
+
 .button-ph {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  flex-grow: 2;
 }
 
 button {
@@ -141,37 +155,11 @@ button {
 
   font-size: 20px;
 
-  height: 100%;
-  width: 100%;
-
-  margin: 16px;
+  margin: 16px auto;
 }
 
 #vk_auth,
 button {
   max-width: 400px;
-}
-
-body ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-/* Track */
-body ::-webkit-scrollbar-track {
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-  background: rgba(240, 240, 240, 0.8);
-}
-
-/* Handle */
-body ::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-  background: rgba(210, 210, 210, 0.8);
-}
-
-body ::-webkit-scrollbar-thumb:window-inactive {
-  background: rgba(200, 200, 200, 0.8);
 }
 </style>

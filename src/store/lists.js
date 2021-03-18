@@ -7,10 +7,6 @@ export default {
   },
   mutations: {},
   actions: {
-    addColumn({ state }) {
-      state.columns[Date.now()] = { label: 'New column', cards: [] };
-    },
-
     setColumn({ state }, [colKey, cards]) {
       state.columns[colKey].cards = cards || [];
     },
