@@ -10,6 +10,9 @@
 </template>
 
 <script>
+/**
+ * Список каторчек.
+ */
 import { mapGetters } from 'vuex';
 
 export default {

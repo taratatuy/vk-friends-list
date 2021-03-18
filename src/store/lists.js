@@ -3,6 +3,7 @@ export default {
     columns: {
       col1: { label: 'All friends', cards: [] },
       col2: { label: 'Selected friends', cards: [] },
+      // Для добавления колонок добавить новую строку, аналогичноую тем, что выше.
     },
   },
   mutations: {},
@@ -18,6 +19,9 @@ export default {
       state.columns[colFromKey].cards.splice(cardIndex, 1);
     },
 
+    /**
+     * Очискта списков при новом логине.
+     */
     clearData({ state }) {
       Object.keys(state.columns).forEach((colKey) => {
         state.columns[colKey].cards = [];

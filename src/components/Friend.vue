@@ -17,6 +17,9 @@
 </template>
 
 <script>
+/**
+ * Компронент отрисовки карточки.
+ */
 export default {
   name: 'Friend',
   props: ['index', 'colKey', 'card'],
